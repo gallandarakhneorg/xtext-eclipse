@@ -35,7 +35,6 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.XtextPackage;
-import org.eclipse.xtext.junit4.Flaky;
 import org.eclipse.xtext.junit4.ui.AbstractLinkedEditingIntegrationTest;
 import org.eclipse.xtext.junit4.ui.util.IResourcesSetupUtil;
 import org.eclipse.xtext.junit4.ui.util.TargetPlatformUtil;
@@ -48,8 +47,6 @@ import org.eclipse.xtext.util.SimpleAttributeResolver;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.xtext.ui.Activator;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
 
 import com.google.common.base.Predicate;
@@ -86,9 +83,6 @@ public class XtextGrammarRefactoringIntegrationTest extends AbstractLinkedEditin
 	public static void setupTargetPlatform() throws Exception {
 		TargetPlatformUtil.setTargetPlatform();
 	}
-	
-	@Rule
-	public Flaky.Rule flakyRule = new Flaky.Rule();
 
 	@Inject
 	private Provider<ResourceSet> resourceSetProvider;
@@ -159,7 +153,6 @@ public class XtextGrammarRefactoringIntegrationTest extends AbstractLinkedEditin
 	}
 
 	@Test
-	@Flaky
 	public void testRefactorXtextGrammarWithoutGeneratedClassifier() throws Exception {
 		waitForBuild();
 		final XtextEditor editor = openEditor(grammarFile);
@@ -171,7 +164,6 @@ public class XtextGrammarRefactoringIntegrationTest extends AbstractLinkedEditin
 	}
 
 	@Test
-	@Flaky
 	public void testRefactorXtextGrammarWithGeneratedClassifier() throws Exception {
 		ResourceSet rs = resourceSetProvider.get();
 		Resource ecoreResource = createEcoreModel(rs, ecoreURI, initialModelRoot);
@@ -194,10 +186,7 @@ public class XtextGrammarRefactoringIntegrationTest extends AbstractLinkedEditin
 		assertEquals(REFACTOREDCLASSIFIERNAME, eType.getName());
 	}
 
-	//FIXME https://github.com/eclipse/xtext-eclipse/issues/17
 	@Test
-	@Flaky(trials=10)
-	@Ignore("https://github.com/eclipse/xtext-eclipse/issues/17")
 	public void testRefactorXtextGrammarWithGeneratedClassifierAndModelWithRefToClassifier() throws Exception {
 		ResourceSet rs = resourceSetProvider.get();
 		EcoreFactory eInstance = EcoreFactory.eINSTANCE;
